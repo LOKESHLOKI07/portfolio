@@ -7,17 +7,17 @@ export default function About() {
   const experiences = [
     {
       title: 'Senior Software Developer',
-      company: 'Getmax Healthcare Pvt Ltd',
-      period: 'January 2024 - Now',
+      company: 'NARDIL Enterprise Private Limited',
+      period: 'June 2025 - Now',
       location: 'Chennai, Tamil Nadu',
-      description: 'Developing and maintaining applications using Django, React, and Frappe for ERP solutions. Working with ERP systems using Frappe, customizing modules to meet business needs.'
+      description: 'Developed AI-powered construction estimation platform using Next.js, React, TypeScript, FastAPI, and PostgreSQL. Implemented OCR, annotation, measurement, and quantity take-off modules for structural drawing analysis.'
     },
     {
-      title: 'Software Developer',
-      company: 'Teckost IT Services Pvt Ltd',
-      period: 'August 2023 - January 2024',
+      title: 'Senior Software Developer',
+      company: 'Getmax Healthcare Pvt Ltd',
+      period: 'August 2023 - June 2025',
       location: 'Chennai, Tamil Nadu',
-      description: 'Developed and optimized Django applications with Python, MySQL, REST APIs, HTML, CSS, and JavaScript. Managed AWS deployments to ensure scalability and high availability.'
+      description: 'Developed and maintained ERP applications using Django, React, and Frappe. Customized Frappe modules, business workflows, and REST APIs to support enterprise operations.'
     },
     {
       title: 'Python Developer',
@@ -27,7 +27,7 @@ export default function About() {
       description: 'Designed and developed full-stack applications using Django and JavaScript frameworks. Integrated and optimized SQL databases, ensuring efficient data management.'
     },
     {
-      title: 'Programmer Trainee',
+      title: 'Programmer Trainee (Python Developer)',
       company: 'Hawkshaw Developers',
       period: 'November 2021 - August 2022',
       location: 'Chennai, Tamil Nadu',
@@ -74,8 +74,8 @@ export default function About() {
             </div>
             <div className={styles.profileImageWrapper}>
               <Image
-                src="/images/profile/developer-pic-2.png"
-                alt="Developer"
+                src="/images/profile/Lokesh_Zoho_Profile%20.png"
+                alt="Lokesh P"
                 width={400}
                 height={400}
                 className={styles.profileImage}
