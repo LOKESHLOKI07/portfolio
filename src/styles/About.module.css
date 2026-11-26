@@ -111,6 +111,32 @@
   color: rgb(var(--text-secondary));
 }
 
+.certGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.certCard {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(var(--text-primary), 0.12);
+  border-radius: 16px;
+  background: rgba(var(--text-primary), 0.03);
+}
+
+.certTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  color: rgb(var(--text-primary));
+}
+
+.certIssuer {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgb(var(--text-secondary));
+}
+
 @media (max-width: 1024px) {
   .introSection {
     grid-template-columns: 1fr;

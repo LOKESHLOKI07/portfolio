@@ -1,54 +1,21 @@
 import Head from 'next/head'
-import Navbar from '@/components/Navbar'
 import Image from 'next/image'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import {
+  profile,
+  experiences,
+  education,
+  certifications,
+} from '@/data/portfolio'
 import styles from '@/styles/About.module.css'
 
 export default function About() {
-  const experiences = [
-    {
-      title: 'Senior Software Developer',
-      company: 'NARDIL Enterprise Private Limited',
-      period: 'June 2025 - Now',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Developed AI-powered construction estimation platform using Next.js, React, TypeScript, FastAPI, and PostgreSQL. Implemented OCR, annotation, measurement, and quantity take-off modules for structural drawing analysis.'
-    },
-    {
-      title: 'Senior Software Developer',
-      company: 'Getmax Healthcare Pvt Ltd',
-      period: 'August 2023 - June 2025',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Developed and maintained ERP applications using Django, React, and Frappe. Customized Frappe modules, business workflows, and REST APIs to support enterprise operations.'
-    },
-    {
-      title: 'Python Developer',
-      company: 'Futurenet Technologies',
-      period: 'September 2022 - July 2023',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Designed and developed full-stack applications using Django and JavaScript frameworks. Integrated and optimized SQL databases, ensuring efficient data management.'
-    },
-    {
-      title: 'Programmer Trainee (Python Developer)',
-      company: 'Hawkshaw Developers',
-      period: 'November 2021 - August 2022',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Built and maintained dynamic web applications. Assisted in cloud deployment and database management for high-performance applications.'
-    }
-  ]
-
-  const education = [
-    {
-      degree: 'BE EEE',
-      school: 'Anna University',
-      period: '2016-2020',
-      description: 'Bachelor of Engineering in Electrical and Electronics Engineering.'
-    }
-  ]
-
   return (
     <>
       <Head>
-        <title>About - Portfolio</title>
-        <meta name="description" content="About page - Full Stack Developer with expertise in Django, React, and AWS" />
+        <title>{`About — ${profile.name}`}</title>
+        <meta name="description" content={`About ${profile.name} — ${profile.title}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -56,26 +23,19 @@ export default function About() {
       <main className={styles.about}>
         <div className={styles.container}>
           <h1 className={styles.heading}>Passion Fuels Purpose!</h1>
-          
+
           <div className={styles.introSection}>
             <div className={styles.introText}>
-              <p className={styles.introParagraph}>
-                Full Stack Developer with 4+ years of experience in Django, React, and AWS. Expertise in building scalable applications, optimizing performance, and integrating APIs for industrial and healthcare solutions. Passionate about writing clean, efficient code and collaborating with cross-functional teams to drive innovation.
-              </p>
-              <p className={styles.introParagraph}>
-                I believe that development is about more than just writing code – it&apos;s about solving problems and 
-                creating efficient, scalable solutions for users.
-              </p>
-              <p className={styles.introParagraph}>
-                Whether I&apos;m working on a web application, ERP system, or 
-                other digital product, I bring my commitment to code excellence and performance optimization to 
-                every project I work on. I look forward to the opportunity to bring my skills and passion to your next project.
-              </p>
+              {profile.about.map((paragraph) => (
+                <p key={paragraph.slice(0, 32)} className={styles.introParagraph}>
+                  {paragraph}
+                </p>
+              ))}
             </div>
             <div className={styles.profileImageWrapper}>
               <Image
-                src="/images/profile/Lokesh_Zoho_Profile%20.png"
-                alt="Lokesh P"
+                src={profile.photo}
+                alt={profile.name}
                 width={400}
                 height={400}
                 className={styles.profileImage}
@@ -87,11 +47,15 @@ export default function About() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Experience</h2>
             <div className={styles.timeline}>
-              {experiences.map((exp, index) => (
-                <div key={index} className={styles.timelineItem}>
+              {experiences.map((exp) => (
+                <div key={`${exp.company}-${exp.period}`} className={styles.timelineItem}>
                   <div className={styles.timelineContent}>
-                    <h3 className={styles.jobTitle}>{exp.title} @{exp.company}</h3>
-                    <p className={styles.jobPeriod}>{exp.period} | {exp.location}</p>
+                    <h3 className={styles.jobTitle}>
+                      {exp.title} @{exp.company}
+                    </h3>
+                    <p className={styles.jobPeriod}>
+                      {exp.period} | {exp.location}
+                    </p>
                     <p className={styles.jobDescription}>{exp.description}</p>
                   </div>
                 </div>
@@ -102,19 +66,34 @@ export default function About() {
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Education</h2>
             <div className={styles.timeline}>
-              {education.map((edu, index) => (
-                <div key={index} className={styles.timelineItem}>
+              {education.map((edu) => (
+                <div key={edu.degree} className={styles.timelineItem}>
                   <div className={styles.timelineContent}>
                     <h3 className={styles.jobTitle}>{edu.degree}</h3>
-                    <p className={styles.jobPeriod}>{edu.period} | {edu.school}</p>
+                    <p className={styles.jobPeriod}>
+                      {edu.period} | {edu.school}
+                    </p>
                     <p className={styles.jobDescription}>{edu.description}</p>
                   </div>
                 </div>
               ))}
             </div>
           </section>
+
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Certifications</h2>
+            <div className={styles.certGrid}>
+              {certifications.map((cert) => (
+                <div key={cert.title} className={styles.certCard}>
+                  <h3 className={styles.certTitle}>{cert.title}</h3>
+                  <p className={styles.certIssuer}>{cert.issuer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
+      <Footer />
     </>
   )
 }

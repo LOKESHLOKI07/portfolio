@@ -1,8 +1,11 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import { profile } from '@/data/portfolio'
 import styles from './Navbar.module.css'
 
 const Navbar = () => {
+  const router = useRouter()
   const [theme, setTheme] = useState('light')
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -25,33 +28,53 @@ const Navbar = () => {
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
-  const handleNavClick = (e, targetId) => {
-    e.preventDefault()
-    const element = document.getElementById(targetId)
-    if (element) {
-      const navbar = document.querySelector(`.${styles.navbar}`)
-      const navbarHeight = navbar ? navbar.offsetHeight : 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+  const goToSection = (targetId) => {
+    if (router.pathname !== '/') {
+      router.push(`/#${targetId}`)
+      return
     }
+
+    const element = document.getElementById(targetId)
+    if (!element) return
+
+    const navbar = document.querySelector(`.${styles.navbar}`)
+    const navbarHeight = navbar ? navbar.offsetHeight : 80
+    const offsetPosition = element.getBoundingClientRect().top + window.pageYOffset - navbarHeight
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
+    })
   }
 
   const handleNavClickWithClose = (e, targetId) => {
-    handleNavClick(e, targetId)
+    e.preventDefault()
+    goToSection(targetId)
     setMobileMenuOpen(false)
   }
+
+  useEffect(() => {
+    if (router.pathname !== '/' || !router.asPath.includes('#')) return
+    const id = router.asPath.split('#')[1]
+    if (!id) return
+    const timer = setTimeout(() => goToSection(id), 100)
+    return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.asPath, router.pathname])
 
   return (
     <header className={styles.navbar}>
       <nav className={styles.nav}>
         <div className={styles.navLeft}>
-          <div className={styles.logo}>LP</div>
-          <button 
+          <button
+            type="button"
+            className={styles.logo}
+            onClick={(e) => handleNavClickWithClose(e, 'home')}
+            aria-label="Go to home"
+          >
+            LP
+          </button>
+          <button
             className={styles.mobileMenuButton}
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"
@@ -63,31 +86,52 @@ const Navbar = () => {
             </span>
           </button>
         </div>
-        
+
         <div className={`${styles.navLinks} ${mobileMenuOpen ? styles.navLinksOpen : ''}`}>
-          <a href="#home" onClick={(e) => handleNavClickWithClose(e, 'home')} className={styles.navLink}>Home</a>
-          <a href="#about" onClick={(e) => handleNavClickWithClose(e, 'about')} className={styles.navLink}>About</a>
-          <a href="#projects" onClick={(e) => handleNavClickWithClose(e, 'projects')} className={styles.navLink}>Projects</a>
-          <a href="#technologies" onClick={(e) => handleNavClickWithClose(e, 'technologies')} className={styles.navLink}>Technologies</a>
+          <a href="/#home" onClick={(e) => handleNavClickWithClose(e, 'home')} className={styles.navLink}>
+            Home
+          </a>
+          <a href="/#about" onClick={(e) => handleNavClickWithClose(e, 'about')} className={styles.navLink}>
+            About
+          </a>
+          <a href="/#projects" onClick={(e) => handleNavClickWithClose(e, 'projects')} className={styles.navLink}>
+            Projects
+          </a>
+          <a href="/#technologies" onClick={(e) => handleNavClickWithClose(e, 'technologies')} className={styles.navLink}>
+            Technologies
+          </a>
+          <a href="/#contact" onClick={(e) => handleNavClickWithClose(e, 'contact')} className={styles.navLink}>
+            Contact
+          </a>
         </div>
-        
+
         <div className={`${styles.navRight} ${mobileMenuOpen ? styles.navRightOpen : ''}`}>
           <div className={styles.socialIcons}>
-            <a href="https://linkedin.com/in/lokesh0703" target="_blank" rel="noopener noreferrer" className={styles.icon}>
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className={styles.icon}>
               <Image src="/images/svgs/linkedin.svg" alt="LinkedIn" width={24} height={24} />
             </a>
-            <a href="mailto:lokeshshc16@gmail.com" className={styles.icon}>
+            <a href={`mailto:${profile.email}`} className={styles.icon}>
               <Image src="/images/svgs/gmail.svg" alt="Gmail" width={24} height={24} />
             </a>
-            <a href="https://github.com/LOKESHLOKI07/" target="_blank" rel="noopener noreferrer" className={styles.icon}>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer" className={styles.icon}>
               <Image src="/images/svgs/logo-github.svg" alt="GitHub" width={24} height={24} />
             </a>
             {mounted && (
-              <button onClick={toggleTheme} className={styles.themeToggle}>
+              <button onClick={toggleTheme} className={styles.themeToggle} type="button">
                 {theme === 'light' ? (
-                  <Image src="/images/svgs/moon-filled-to-sunny-filled-loop-transition.svg" alt="Dark mode" width={24} height={24} />
+                  <Image
+                    src="/images/svgs/moon-filled-to-sunny-filled-loop-transition.svg"
+                    alt="Dark mode"
+                    width={24}
+                    height={24}
+                  />
                 ) : (
-                  <Image src="/images/svgs/sunny-filled-loop-to-moon-filled-loop-transition.svg" alt="Light mode" width={24} height={24} />
+                  <Image
+                    src="/images/svgs/sunny-filled-loop-to-moon-filled-loop-transition.svg"
+                    alt="Light mode"
+                    width={24}
+                    height={24}
+                  />
                 )}
               </button>
             )}

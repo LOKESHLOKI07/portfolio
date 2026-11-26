@@ -1,16 +1,22 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { profile } from '@/data/portfolio'
 import styles from './Hero.module.css'
 
 const Hero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContainer}>
-        <div className={styles.heroLeft}>
+        <motion.div
+          className={styles.heroLeft}
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <div className={styles.profileImageContainer}>
             <Image
               src="/images/profile/developer-pic-1.png"
-              alt="Developer"
+              alt={profile.name}
               width={500}
               height={500}
               className={styles.profileImage}
@@ -24,36 +30,56 @@ const Hero = () => {
                 height={280}
                 className={styles.circularText}
               />
-              <button className={styles.hireMeButton}>Hire Me</button>
+              <a href={`mailto:${profile.email}`} className={styles.hireMeButton}>
+                Hire Me
+              </a>
             </div>
           </div>
-        </div>
-        <div className={styles.heroRight}>
+        </motion.div>
+        <motion.div
+          className={styles.heroRight}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
+        >
+          <p className={styles.brandName}>{profile.name}</p>
+          <p className={styles.roleTitle}>{profile.title}</p>
           <h1 className={styles.mainHeading}>
-            Turning Vision Into Reality With Code And Design.
+            Building production AI systems with Python backends.
           </h1>
-          <p className={styles.description}>
-            Full Stack Developer with 4+ years of experience in Django, React, and AWS. Expertise in building scalable applications, optimizing performance, and integrating APIs for industrial and healthcare solutions. Explore my latest projects showcasing my expertise in full-stack development.
-          </p>
+          <p className={styles.description}>{profile.summary}</p>
           <div className={styles.ctaButtons}>
-            <a href="/LOKESH_P_2026_Resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.resumeButton}>
-              Resume
-              <Image src="/images/svgs/external-link.svg" alt="External link" width={20} height={20} />
+            <a
+              href={profile.resumeAi}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.resumeButton}
+            >
+              AI Resume
+              <Image src="/images/svgs/external-link.svg" alt="" width={20} height={20} />
             </a>
-            <a href="tel:+918072876011" className={styles.contactButton}>
+            <a
+              href={profile.resumeFullStack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.resumeSecondary}
+            >
+              Full Stack Resume
+            </a>
+            <a href="#contact" className={styles.contactButton}>
               Contact
             </a>
           </div>
           <div className={styles.lightbulb}>
             <Image
               src="/images/svgs/miscellaneous_icons_1.svg"
-              alt="Lightbulb"
+              alt=""
               width={100}
               height={100}
               className={styles.lightbulbIcon}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

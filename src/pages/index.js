@@ -1,169 +1,60 @@
 import Head from 'next/head'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
-import Image from 'next/image'
-import Link from 'next/link'
-import styles from '@/styles/Home.module.css'
+import Footer from '@/components/Footer'
+import {
+  profile,
+  experiences,
+  education,
+  certifications,
+  projects,
+  technologies,
+} from '@/data/portfolio'
 import aboutStyles from '@/styles/About.module.css'
 import projectsStyles from '@/styles/Projects.module.css'
 import technologiesStyles from '@/styles/Technologies.module.css'
+import contactStyles from '@/styles/Contact.module.css'
 
 export default function Home() {
-  const experiences = [
-    {
-      title: 'Senior Software Developer',
-      company: 'NARDIL Enterprise Private Limited',
-      period: 'June 2025 - Now',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Developed AI-powered construction estimation platform using Next.js, React, TypeScript, FastAPI, and PostgreSQL. Implemented OCR, annotation, measurement, and quantity take-off modules for structural drawing analysis.'
-    },
-    {
-      title: 'Senior Software Developer',
-      company: 'Getmax Healthcare Pvt Ltd',
-      period: 'August 2023 - June 2025',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Developed and maintained ERP applications using Django, React, and Frappe. Customized Frappe modules, business workflows, and REST APIs to support enterprise operations.'
-    },
-    {
-      title: 'Python Developer',
-      company: 'Futurenet Technologies',
-      period: 'September 2022 - July 2023',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Designed and developed full-stack applications using Django and JavaScript frameworks. Integrated and optimized SQL databases, ensuring efficient data management.'
-    },
-    {
-      title: 'Programmer Trainee (Python Developer)',
-      company: 'Hawkshaw Developers',
-      period: 'November 2021 - August 2022',
-      location: 'Chennai, Tamil Nadu',
-      description: 'Built and maintained dynamic web applications. Assisted in cloud deployment and database management for high-performance applications.'
-    }
-  ]
-
-  const education = [
-    {
-      degree: 'BE EEE',
-      school: 'Anna University',
-      period: '2016-2020',
-      description: 'Bachelor of Engineering in Electrical and Electronics Engineering.'
-    }
-  ]
-
-  const projects = [
-    {
-      title: 'NaRDil AI - AI-Powered Construction Drawing Analysis Platform',
-      description: 'Built a full-stack construction management platform with ML-driven drawing analysis. Used Google Cloud Vertex AI to extract structured data from construction plans. Developed a scalable FastAPI backend with PostgreSQL, REST APIs, and WebSockets. Implemented real-time collaboration and document storage using Google Cloud services. Created a Next.js + TypeScript frontend with live annotations and measurement tools. Added RBAC, Firebase authentication, project management, and data visualization.',
-      image: '/images/projects/nft-collection-website-cover-image.jpg',
-      link: '#'
-    },
-    {
-      title: 'Industrial Asset Data Acquisition & Integration',
-      description: 'Developed a React-Django system for real-time data acquisition from industrial assets, including energy meters, sensors, and IoT devices. Users provide IP and Port, allowing dynamic connections via Python-based connectors. Supports MQTT, OPC UA, and Modbus for seamless integration.',
-      image: '/images/projects/crypto-screener-cover-image.png',
-      link: '#'
-    },
-    {
-      title: 'Company Registration and Landing Page Management',
-      description: 'Developed a web-based system for company registration and landing page management. The platform allows businesses to register, submit branding details, and get a dedicated landing page upon admin approval.',
-      image: '/images/projects/portfolio-cover-image.jpg',
-      link: 'https://pngmeetup.com/'
-    },
-    {
-      title: 'Automated Report Generation and Data Visualization for OTRS',
-      description: 'Built a Django-based web application to automate report generation for OTRS, improving efficiency through an interactive dashboard and data visualization. Reduced manual effort by 90%, enabling managers to focus on decision-making.',
-      image: '/images/projects/otrs.png',
-      link: '#'
-    },
-    {
-      title: 'Customer EPO Analysis and Visualization',
-      description: 'Enhanced data analytics platform to analyze customer EPO data, detect anomalies, and visualize trends. Implemented interactive dashboards for real-time monitoring using Dash & Plotly.',
-      image: '/images/projects/EPO.png',
-      link: '#'
-    }
-  ]
-
-  const technologies = [
-    {
-      category: 'Frontend',
-      techs: [
-        { name: 'React', icon: '⚛️' },
-        { name: 'Next.js', icon: '▲' },
-        { name: 'JavaScript', icon: '📜' },
-        { name: 'HTML', icon: '🌐' },
-        { name: 'CSS', icon: '🎨' }
-      ]
-    },
-    {
-      category: 'Backend',
-      techs: [
-        { name: 'Django', icon: '🐍' },
-        { name: 'Node.js', icon: '🟢' },
-        { name: 'Python', icon: '🐍' },
-        { name: 'REST APIs', icon: '🔌' }
-      ]
-    },
-    {
-      category: 'Database',
-      techs: [
-        { name: 'MySQL', icon: '🗄️' },
-        { name: 'PostgreSQL', icon: '🐘' },
-        { name: 'MongoDB', icon: '🍃' }
-      ]
-    },
-    {
-      category: 'Cloud & DevOps',
-      techs: [
-        { name: 'AWS', icon: '☁️' },
-        { name: 'Git', icon: '📦' }
-      ]
-    },
-    {
-      category: 'ERP & Tools',
-      techs: [
-        { name: 'Frappe', icon: '📊' }
-      ]
-    }
-  ]
-
   return (
     <>
       <Head>
-        <title>Portfolio - Lokesh P</title>
-        <meta name="description" content="Full Stack Developer portfolio showcasing projects and expertise in Django, React, and AWS" />
+        <title>{`${profile.name} — ${profile.title}`}</title>
+        <meta name="description" content={profile.metaDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="og:title" content={`${profile.name} — ${profile.title}`} />
+        <meta property="og:description" content={profile.metaDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={profile.photo} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${profile.name} — ${profile.title}`} />
+        <meta name="twitter:description" content={profile.metaDescription} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      
-      {/* Home Section */}
+
       <section id="home">
         <Hero />
       </section>
 
-      {/* About Section */}
       <section id="about" className={aboutStyles.about}>
         <div className={aboutStyles.container}>
           <h1 className={aboutStyles.heading}>Passion Fuels Purpose!</h1>
-          
+
           <div className={aboutStyles.introSection}>
             <div className={aboutStyles.introText}>
-              <p className={aboutStyles.introParagraph}>
-                Full Stack Developer with 4+ years of experience in Django, React, and AWS. Expertise in building scalable applications, optimizing performance, and integrating APIs for industrial and healthcare solutions. Passionate about writing clean, efficient code and collaborating with cross-functional teams to drive innovation.
-              </p>
-              <p className={aboutStyles.introParagraph}>
-                I believe that development is about more than just writing code – it&apos;s about solving problems and 
-                creating efficient, scalable solutions for users.
-              </p>
-              <p className={aboutStyles.introParagraph}>
-                Whether I&apos;m working on a web application, ERP system, or 
-                other digital product, I bring my commitment to code excellence and performance optimization to 
-                every project I work on. I look forward to the opportunity to bring my skills and passion to your next project.
-              </p>
+              {profile.about.map((paragraph) => (
+                <p key={paragraph.slice(0, 32)} className={aboutStyles.introParagraph}>
+                  {paragraph}
+                </p>
+              ))}
             </div>
             <div className={aboutStyles.profileImageWrapper}>
               <Image
-                src="/images/profile/Lokesh_Zoho_Profile%20.png"
-                alt="Lokesh P"
+                src={profile.photo}
+                alt={profile.name}
                 width={400}
                 height={400}
                 className={aboutStyles.profileImage}
@@ -175,11 +66,15 @@ export default function Home() {
           <section className={aboutStyles.section}>
             <h2 className={aboutStyles.sectionTitle}>Experience</h2>
             <div className={aboutStyles.timeline}>
-              {experiences.map((exp, index) => (
-                <div key={index} className={aboutStyles.timelineItem}>
+              {experiences.map((exp) => (
+                <div key={`${exp.company}-${exp.period}`} className={aboutStyles.timelineItem}>
                   <div className={aboutStyles.timelineContent}>
-                    <h3 className={aboutStyles.jobTitle}>{exp.title} @{exp.company}</h3>
-                    <p className={aboutStyles.jobPeriod}>{exp.period} | {exp.location}</p>
+                    <h3 className={aboutStyles.jobTitle}>
+                      {exp.title} @{exp.company}
+                    </h3>
+                    <p className={aboutStyles.jobPeriod}>
+                      {exp.period} | {exp.location}
+                    </p>
                     <p className={aboutStyles.jobDescription}>{exp.description}</p>
                   </div>
                 </div>
@@ -190,13 +85,27 @@ export default function Home() {
           <section className={aboutStyles.section}>
             <h2 className={aboutStyles.sectionTitle}>Education</h2>
             <div className={aboutStyles.timeline}>
-              {education.map((edu, index) => (
-                <div key={index} className={aboutStyles.timelineItem}>
+              {education.map((edu) => (
+                <div key={edu.degree} className={aboutStyles.timelineItem}>
                   <div className={aboutStyles.timelineContent}>
                     <h3 className={aboutStyles.jobTitle}>{edu.degree}</h3>
-                    <p className={aboutStyles.jobPeriod}>{edu.period} | {edu.school}</p>
+                    <p className={aboutStyles.jobPeriod}>
+                      {edu.period} | {edu.school}
+                    </p>
                     <p className={aboutStyles.jobDescription}>{edu.description}</p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className={aboutStyles.section}>
+            <h2 className={aboutStyles.sectionTitle}>Certifications</h2>
+            <div className={aboutStyles.certGrid}>
+              {certifications.map((cert) => (
+                <div key={cert.title} className={aboutStyles.certCard}>
+                  <h3 className={aboutStyles.certTitle}>{cert.title}</h3>
+                  <p className={aboutStyles.certIssuer}>{cert.issuer}</p>
                 </div>
               ))}
             </div>
@@ -204,14 +113,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
       <section id="projects" className={projectsStyles.projects}>
         <div className={projectsStyles.container}>
           <h1 className={projectsStyles.heading}>Imagination Trumps Knowledge!</h1>
-          
+
           <div className={projectsStyles.projectsGrid}>
             {projects.map((project, index) => (
-              <div key={index} className={projectsStyles.projectCard}>
+              <motion.div
+                key={project.title}
+                className={projectsStyles.projectCard}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.05 }}
+              >
                 <div className={projectsStyles.imageContainer}>
                   <Image
                     src={project.image}
@@ -224,36 +139,52 @@ export default function Home() {
                 <div className={projectsStyles.projectInfo}>
                   <h3 className={projectsStyles.projectTitle}>{project.title}</h3>
                   <p className={projectsStyles.projectDescription}>{project.description}</p>
-                  {project.link.startsWith('http') ? (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className={projectsStyles.projectLink}>
+                  {project.impact && (
+                    <p className={projectsStyles.projectImpact}>{project.impact}</p>
+                  )}
+                  <div className={projectsStyles.techRow}>
+                    {project.tech.map((tag) => (
+                      <span key={tag} className={projectsStyles.techTag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={projectsStyles.projectLink}
+                    >
                       View Project
-                      <Image src="/images/svgs/external-link.svg" alt="External link" width={20} height={20} />
+                      <Image
+                        src="/images/svgs/external-link.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                      />
                     </a>
-                  ) : (
-                    <Link href={project.link} className={projectsStyles.projectLink}>
-                      View Project
-                      <Image src="/images/svgs/external-link.svg" alt="External link" width={20} height={20} />
-                    </Link>
                   )}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Technologies Section */}
       <section id="technologies" className={technologiesStyles.technologies}>
         <div className={technologiesStyles.container}>
           <h1 className={technologiesStyles.heading}>Technologies I Know</h1>
-          <p className={technologiesStyles.subheading}>A comprehensive overview of my technical expertise and tools</p>
-          
-          {technologies.map((category, categoryIndex) => (
-            <div key={categoryIndex} className={technologiesStyles.categorySection}>
+          <p className={technologiesStyles.subheading}>
+            Backend, AI/ML, and cloud tools I use to ship production systems
+          </p>
+
+          {technologies.map((category) => (
+            <div key={category.category} className={technologiesStyles.categorySection}>
               <h2 className={technologiesStyles.categoryTitle}>{category.category}</h2>
               <div className={technologiesStyles.technologiesGrid}>
-                {category.techs.map((tech, techIndex) => (
-                  <div key={techIndex} className={technologiesStyles.techBadge}>
+                {category.techs.map((tech) => (
+                  <div key={tech.name} className={technologiesStyles.techBadge}>
                     <span className={technologiesStyles.techIcon}>{tech.icon}</span>
                     <span className={technologiesStyles.techName}>{tech.name}</span>
                   </div>
@@ -263,6 +194,57 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <section id="contact" className={contactStyles.contact}>
+        <div className={contactStyles.container}>
+          <h2 className={contactStyles.heading}>Let&apos;s build something</h2>
+          <p className={contactStyles.subheading}>
+            Open to AI/backend roles and collaborations. Reach out by email or phone — I usually
+            respond within a day.
+          </p>
+          <div className={contactStyles.actions}>
+            <a href={`mailto:${profile.email}`} className={contactStyles.primaryBtn}>
+              Email Me
+            </a>
+            <a href={`tel:${profile.phone}`} className={contactStyles.secondaryBtn}>
+              Call {profile.phoneDisplay}
+            </a>
+            <a
+              href={profile.resumeAi}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={contactStyles.secondaryBtn}
+            >
+              Download AI Resume
+            </a>
+          </div>
+          <div className={contactStyles.details}>
+            <div className={contactStyles.detailCard}>
+              <span className={contactStyles.detailLabel}>Email</span>
+              <a href={`mailto:${profile.email}`} className={contactStyles.detailValue}>
+                {profile.email}
+              </a>
+            </div>
+            <div className={contactStyles.detailCard}>
+              <span className={contactStyles.detailLabel}>Location</span>
+              <span className={contactStyles.detailValue}>{profile.location}</span>
+            </div>
+            <div className={contactStyles.detailCard}>
+              <span className={contactStyles.detailLabel}>Social</span>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={contactStyles.detailValue}
+              >
+                LinkedIn / GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </>
   )
 }
