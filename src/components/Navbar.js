@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { profile } from '@/data/portfolio'
@@ -88,21 +89,21 @@ const Navbar = () => {
         </div>
 
         <div className={`${styles.navLinks} ${mobileMenuOpen ? styles.navLinksOpen : ''}`}>
-          <a href="/#home" onClick={(e) => handleNavClickWithClose(e, 'home')} className={styles.navLink}>
+          <Link href="/#home" onClick={(e) => handleNavClickWithClose(e, 'home')} className={styles.navLink}>
             Home
-          </a>
-          <a href="/#about" onClick={(e) => handleNavClickWithClose(e, 'about')} className={styles.navLink}>
+          </Link>
+          <Link href="/#about" onClick={(e) => handleNavClickWithClose(e, 'about')} className={styles.navLink}>
             About
-          </a>
-          <a href="/#projects" onClick={(e) => handleNavClickWithClose(e, 'projects')} className={styles.navLink}>
+          </Link>
+          <Link href="/#projects" onClick={(e) => handleNavClickWithClose(e, 'projects')} className={styles.navLink}>
             Projects
-          </a>
-          <a href="/#technologies" onClick={(e) => handleNavClickWithClose(e, 'technologies')} className={styles.navLink}>
+          </Link>
+          <Link href="/#technologies" onClick={(e) => handleNavClickWithClose(e, 'technologies')} className={styles.navLink}>
             Technologies
-          </a>
-          <a href="/#contact" onClick={(e) => handleNavClickWithClose(e, 'contact')} className={styles.navLink}>
+          </Link>
+          <Link href="/#contact" onClick={(e) => handleNavClickWithClose(e, 'contact')} className={styles.navLink}>
             Contact
-          </a>
+          </Link>
         </div>
 
         <div className={`${styles.navRight} ${mobileMenuOpen ? styles.navRightOpen : ''}`}>
